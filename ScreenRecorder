@@ -1,0 +1,39 @@
+
+import pyautogui as pyt
+import cv2
+import numpy as np
+
+
+resolution = (1920, 1080)
+codec = cv2.VideoWriter_fourcc(*"XVID")
+filename = "Recording.avi"
+fps = 13.0
+
+out = cv2.VideoWriter(filename, codec, fps, resolution)
+cv2.namedWindow("Record", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("Record", 480, 270)
+
+while True:
+
+    img = pyt.screenshot()
+    frame = np.array(img)
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    out.write(frame)
+    cv2.imshow('Record', frame)
+
+
+    @_genericPyAutoGUIChecks
+
+    def press(keys: {"Enter"},
+              presses: Any = 1,
+             interval: Any = 0.0,
+             logScreenshot: Any = None,
+            _pause: bool = True) -> Any | None
+
+
+    # Stop recording when we press 'q'
+    if cv2.waitKey(2) == ord('q'):
+        break
+
+out.release()
+cv2.destroyAllWindows()
